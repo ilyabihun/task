@@ -24,12 +24,12 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = [
             'id',
-            'title',
+            'name',
             'creator',
             'created_at',
             'updated_at',
             'status',
-            'ticket_messages',
+            'ticket_message',
         ]
 
 

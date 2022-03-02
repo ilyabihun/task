@@ -21,22 +21,25 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAdminUser]
         return [permission() for permission in permission_classes]
 
-    @action(methods=['Post'], detail=False, url_path='register')
+    @action(methods=['POST'], detail=False, url_path="register")
     def register(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        first_name = request.data.get('first name')
-        last_name = request.data.get('last name')
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
         email = request.data.get('email')
-        us = User(username=username, first_name=first_name, last_name=last_name, email=email)
+        us = User(username=username,
+                  first_name=first_name,
+                  last_name=last_name,
+                  email=email)
         us.set_password(password)
         us.save()
         refresh = RefreshToken.for_user(us)
         res_data = {
-            'user': UserSerializer(us).data,
-            'token': {
+            "user": UserSerializer(us).data,
+            "token": {
                 'refresh': str(refresh),
-                'acces': str(refresh.acces_token)
+                'access': str(refresh.access_token),
             }
         }
         return Response(res_data, status=status.HTTP_201_CREATED)

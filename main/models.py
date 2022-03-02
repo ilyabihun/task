@@ -12,11 +12,13 @@ class Ticket(models.Model):
         'auth.User',
         on_delete=models.CASCADE,
         related_name='creator_ticket',
-        verbose_name='creator'
+        verbose_name='Creator'
     )
-    created_at = models.DateField(auto_now_add=True, verbose_name='Creator')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Created')
     updated_at = models.DateField(auto_now=True, verbose_name='Update')
-    status = models.CharField(max_length=3, verbose_name='Status', choices=Statusticket.choices,
+    status = models.CharField(max_length=3,
+                              verbose_name='Status',
+                              choices=Statusticket.choices,
                               default=Statusticket.OPEN)
 
     def __str__(self):
@@ -40,7 +42,8 @@ class Message(models.Model):
                                on_delete=models.CASCADE,
                                verbose_name='Author',
                                related_name='author')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Creator')
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      verbose_name='Creator')
 
     def __str__(self):
         return f'Message - {self.ticket} \
